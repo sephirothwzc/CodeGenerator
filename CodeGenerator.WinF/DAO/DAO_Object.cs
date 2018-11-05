@@ -74,7 +74,7 @@ table_name  = @TABLE_NAME", this.GetDBcon().dbname);
   D.CHARACTER_MAXIMUM_LENGTH as Data_length,
   D.IS_NULLABLE  as Nullable,
   D.COLUMN_DEFAULT as Data_default,
-	C.value AS column_description 
+	C.value AS Comments 
 FROM sys.tables A  
 INNER JOIN sys.columns B ON B.object_id = A.object_id  
 LEFT JOIN sys.extended_properties C ON C.major_id = B.object_id AND C.minor_id = B.column_id 

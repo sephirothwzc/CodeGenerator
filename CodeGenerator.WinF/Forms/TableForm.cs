@@ -133,6 +133,7 @@ namespace CodeGenerator.WinF.Forms
             else if (p.Data_type.ToUpper() == "DATETIME")
             {
                 dbtype = "DateTime" + (p.Nullable == "Y" ? "?" : "");
+                def = " = DateTime.Now;";
             }
             else if (p.Data_type.ToUpper() == "NUMERIC")
             {
@@ -145,6 +146,11 @@ namespace CodeGenerator.WinF.Forms
             if (dbtype == "string")
             {
                 attr += string.Format("\r\n            [StringLength({0}, ErrorMessage = \"长度必须小于{0}个字符。\")]", p.Data_length);
+                if(!string.IsNullOrEmpty(p.Data_default)&& p.Data_default == "('')")
+                {
+                    def = "\"\"";
+                }
+                def = string.IsNullOrEmpty(p.Data_default) ? def : " = " + p.Data_default.Replace("(","").Replace(")","") + ";";
             }
             if (!string.IsNullOrEmpty(p.Comments))
             {
