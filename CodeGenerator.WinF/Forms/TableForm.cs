@@ -148,9 +148,11 @@ namespace CodeGenerator.WinF.Forms
                 attr += string.Format("\r\n            [StringLength({0}, ErrorMessage = \"长度必须小于{0}个字符。\")]", p.Data_length);
                 if(!string.IsNullOrEmpty(p.Data_default)&& p.Data_default == "('')")
                 {
-                    def = "\"\"";
+                    def = " = \"\";";
+                }else
+                {
+                    def = string.IsNullOrEmpty(p.Data_default) ? def : " = " + p.Data_default.Replace("(", "").Replace(")", "") + ";";
                 }
-                def = string.IsNullOrEmpty(p.Data_default) ? def : " = " + p.Data_default.Replace("(","").Replace(")","") + ";";
             }
             if (!string.IsNullOrEmpty(p.Comments))
             {
